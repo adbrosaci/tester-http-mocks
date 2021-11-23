@@ -62,9 +62,15 @@ class SessionSection extends Nette\Http\SessionSection
 	}
 
 
-	public function remove(): void
+	public function remove($name = null): void
 	{
-		$this->data = [];
+		if (func_num_args()) {
+			foreach ((array) $name as $name) {
+				unset($this->data[$name]);
+			}
+		} else {
+			$this->data = [];
+		}
 	}
 
 }

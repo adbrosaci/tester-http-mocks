@@ -21,11 +21,6 @@ class Session extends Nette\Http\Session
 	private $id;
 
 
-	public function __construct()
-	{
-	}
-
-
 	public function start(): void
 	{
 		$this->started = TRUE;

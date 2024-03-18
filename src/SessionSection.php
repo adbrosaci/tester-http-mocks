@@ -8,10 +8,11 @@ use Nette;
 class SessionSection extends Nette\Http\SessionSection
 {
 
+	/** @var array<string,mixed> */
 	private $data = [];
 
 
-	public function __construct(Nette\Http\Session $session, $name)
+	public function __construct(Nette\Http\Session $session, string $name)
 	{
 		parent::__construct($session, $name);
 	}
@@ -22,14 +23,29 @@ class SessionSection extends Nette\Http\SessionSection
 		return new \ArrayIterator($this->data);
 	}
 
+	public function set(string $name, mixed $value, ?string $expire = null): void
+	{
+		$this->data[$name] = $value;
+	}
 
+	public function get(string $name): mixed
+	{
+			return $this->data[$name] ?? null;
+	}
+
+
+	/**
+	 * @param mixed $value
+	 */
 	public function __set(string $name, $value): void
 	{
 		$this->data[$name] = $value;
 	}
 
-
-	public function &__get(string $name)
+	/**
+	 * @return mixed
+	 */
+	public function &__get(string $name): mixed
 	{
 		if ($this->warnOnUndefined && !array_key_exists($name, $this->data)) {
 			trigger_error("The variable '$name' does not exist in session section", E_USER_NOTICE);
@@ -51,7 +67,7 @@ class SessionSection extends Nette\Http\SessionSection
 	}
 
 
-	public function setExpiration($time, $variables = NULL)
+	public function setExpiration(?string $expire, string|array|null $variables = NULL): static
 	{
 		return $this;
 	}

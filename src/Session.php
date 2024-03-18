@@ -68,13 +68,13 @@ class Session extends Nette\Http\Session
 	}
 
 
-	public function setFakeId($id)
+	public function setFakeId(string $id): void
 	{
 		$this->id = $id;
 	}
 
 
-	public function getSection(string $section, $class = SessionSection::class): Nette\Http\SessionSection
+	public function getSection(string $section, string $class = SessionSection::class): Nette\Http\SessionSection
 	{
 		if (isset($this->sections[$section])) {
 			return $this->sections[$section];
@@ -104,7 +104,7 @@ class Session extends Nette\Http\Session
 	}
 
 
-	public function setName(string $name)
+	public function setName(string $name): static
 	{
 		return $this;
 	}
@@ -115,44 +115,50 @@ class Session extends Nette\Http\Session
 		return '';
 	}
 
-
-	public function setOptions(array $options)
+	/**
+	 * @param array<string,mixed> $options
+	 */
+	public function setOptions(array $options): static
 	{
 		return $this;
 	}
 
-
+	/**
+	 * @return array<string,mixed>
+	 */
 	public function getOptions(): array
 	{
 		return [];
 	}
 
 
-	public function setExpiration(?string $time)
+	public function setExpiration(?string $time): static
 	{
 		return $this;
 	}
 
 
-	public function setCookieParameters(string $path, string $domain = NULL, bool $secure = NULL, string $samesite = NULL)
+	public function setCookieParameters(string $path, string $domain = NULL, bool $secure = NULL, string $samesite = NULL): static
 	{
 		return $this;
 	}
 
-
+	/**
+	 * @return array<string,mixed>
+	 */
 	public function getCookieParameters(): array
 	{
 		return [];
 	}
 
-
-	public function setSavePath(string $path)
+	public function setSavePath(string $path): static
 	{
 		return $this;
 	}
 
 
-	public function setHandler(\SessionHandlerInterface $handler)
+	public function setHandler(\SessionHandlerInterface $handler): static
 	{
+		return $this;
 	}
 }
